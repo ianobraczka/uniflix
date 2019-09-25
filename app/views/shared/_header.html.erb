@@ -1,0 +1,23 @@
+<div class="header">
+	<h1><%= link_to 'UNIFLIX', root_path %></h1>
+	<div class="user-area">
+		<% unless user_signed_in? %>
+			<% link_to 'entrar', new_user_session_path %>
+		<% else %>
+			<%= link_to 'sair', destroy_user_session_path, method: :delete %>
+		<% end %>
+	</div>
+</div>
+<div class="options">
+	<ul>
+		<li>
+			<%= link_to 'Filtragem colaborativa', collaborative_filtering_path %>
+		</li>
+		<li>
+			<%= link_to 'Por conteúdo', query_filtering_path %>
+		</li>
+		<li>
+			<%= link_to 'Passado', past_filtering_path %>
+		</li>
+	</ul>
+</div>

@@ -1,0 +1,7 @@
+<ul class="books">
+	<% @books.each do |book| %>
+		<li class="book">
+			<%= link_to "#{book.title} (#{book.author})", book %> tamanho <%= book.height %>
+		</li>
+	<% end %>
+</ul>

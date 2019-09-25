@@ -1,0 +1,10 @@
+<h1> <%= @book.title %> </h1>
+<h3> <%= @book.author %> </h3>
+
+<br><br>
+
+<% unless @book.liked?(current_user) %>
+	<%= button_to 'like', like_path(book_id: @book.id, user_id: current_user.id) %>
+<% else %>
+	<%= button_to 'unlike', unlike_path(book_id: @book.id, user_id: current_user.id) %>
+<% end %>

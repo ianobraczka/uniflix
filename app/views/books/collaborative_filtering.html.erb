@@ -1,0 +1,8 @@
+<ul class="books">
+	<% @books.each do |key, value| %>
+		<li class="book">
+			<%= link_to "#{key.title} (#{key.author})", key %> - <%= value.round(2) %>
+		</li>
+	<% end %>
+</ul>
+
