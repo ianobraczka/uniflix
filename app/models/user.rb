@@ -24,7 +24,11 @@ class User < ApplicationRecord
         self.books.each do |book|
             total = total + book.height
         end
-        return total/self.books.count
+        unless self.books.count == 0
+            return total/self.books.count
+        else
+            return 0
+        end
     end
 
     def recommended_books
