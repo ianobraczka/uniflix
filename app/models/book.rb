@@ -60,7 +60,7 @@ class Book < ApplicationRecord
   end
   	
 	require 'csv'
-  	def self.import_table(filepath='books.csv')
+  	def self.import_table(filepath=Rails.public_path.join('books.csv'))
   		CSV.foreach(filepath, headers: true) do |row|
   			book = Book.new row.to_hash
   			book.category_id = 1
