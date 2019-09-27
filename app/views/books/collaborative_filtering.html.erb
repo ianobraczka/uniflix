@@ -1,8 +1,18 @@
 <ul class="books">
-	<% @books.each do |key, value| %>
-		<li class="book">
-			<%= link_to "#{key.title} (#{key.author})", key %> - <%= value.round(2) %>
-		</li>
+	<% i = 0 %>
+	<% @books.each do |book| %>
+			<%= link_to book do %>
+				<li class="book <%= book.genre %> <%= 'liked' if current_user.likes?(book.id)%>">
+					<%= book.title %><br><br>
+					<%= "(#{book.author})" %>
+					<% if i < @weights.count %>
+						<div class="weight">
+						peso: <%= @weights[i] %>
+						<% i =+1 %>
+						</div>
+					<% end %>
+				</li> 
+			<% end %>
 	<% end %>
 </ul>
 

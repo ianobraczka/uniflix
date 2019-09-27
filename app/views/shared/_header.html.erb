@@ -10,14 +10,25 @@
 </div>
 <div class="options">
 	<ul>
+		<%= link_to collaborative_filtering_path, class: 'option' do %>
+			<li>
+				Filtragem colaborativa
+			</li>
+		<% end %>
+		<%= link_to query_filtering_path, class: 'option'  do %>
+			<li>
+				Por conteúdo
+			</li>
+		<% end %>
+		<%= link_to past_filtering_path, class: 'option' do %>
+			<li>
+				Passado
+			</li>
+		<% end %>
+		<%= link_to liked_book_path, class: 'option' do %>
 		<li>
-			<%= link_to 'Filtragem colaborativa', collaborative_filtering_path %>
+			Curtidos
 		</li>
-		<li>
-			<%= link_to 'Por conteúdo', query_filtering_path %>
-		</li>
-		<li>
-			<%= link_to 'Passado', past_filtering_path %>
-		</li>
+		<% end %>
 	</ul>
 </div>

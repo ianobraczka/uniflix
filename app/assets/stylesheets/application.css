@@ -36,20 +36,33 @@ body
 
 .options ul
 {
+	padding: 0px;
 	margin: 0px;
-	border: 0.3px solid grey;
-	border-left: 0px;
-	border-right: 0px;
 	list-style: none;
 	text-align: center;
+	display: block;
 }
 
 .options li
 {
+	min-width: 200px;
 	display: inline-block;
-	width: 30%;
+	width: 23%;
 	padding: 10px 0px;
-	border-right: 1px solid grey;
+	border: 1px solid grey;
+}
+
+.options li:hover
+{
+	background-color: lightgrey;
+}
+
+.options .option
+{
+	color: black;
+	text-decoration: none;
+	text-transform: lowercase;
+	font-weight: bold;
 }
 
 .header h1 a
@@ -66,9 +79,50 @@ body
 .books
 {
 	list-style: none;
+	padding: 20px;
+	text-align: center;
+	margin: 0px;
 }
 
 .book
 {
-	
+	display: inline-block;
+
+	width: 15%;
+	height: 180px;
+	min-width: 150px;
+
+	margin: 5px;
+	padding: 12px 0px;
+	line-height: 25px;
+	border:1px solid black;
+
+	cursor: pointer;
+
+	text-decoration: none;
+	color: black;
+	font-size: 14px;
+	font-weight: 400;
+
+	background-color: grey;
+}
+
+.book.liked
+{
+	background-color: green;
+}
+
+.book:hover
+{
+	background-color: yellow;
+} 
+
+.books a
+{
+	text-decoration: none;
+}
+
+.book-info
+{
+	padding: 40px;
 }

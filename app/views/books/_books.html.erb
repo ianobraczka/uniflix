@@ -1,0 +1,10 @@
+<ul class="books">
+	<% @books.each do |book| %>
+		<%= link_to book do %>
+			<li class="book <%= book.genre %> <%= 'liked' if current_user.likes?(book.id)%>">
+				<%= book.title %><br><br>
+				<%= "(#{book.author})"%>
+			</li>
+		<% end %>
+	<% end %>
+</ul>

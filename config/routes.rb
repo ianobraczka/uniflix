@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'books/query_filtering', as: :query_filtering
   get 'books/collaborative_filtering', as: :collaborative_filtering
   get 'books/past_filtering', as: :past_filtering
+  get 'liked', controller: :books, as: :liked_book
   post 'like/:book_id/:user_id', to: 'books#like', as: :like
   post 'unlike/:book_id/:user_id', to: 'books#unlike', as: :unlike
 

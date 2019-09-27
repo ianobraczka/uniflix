@@ -6,6 +6,58 @@ class Book < ApplicationRecord
 
 	include SimpleRecommender::Recommendable
 	similar_by :users
+
+  def self.horror
+    Book.where(genre: 'horror')
+  end
+
+  def self.signal_processing
+    Book.where(genre: 'horror' )
+  end
+
+  def self.data_science
+    Book.where(genre: 'horror' )
+  end
+
+  def self.mathematics
+    Book.where(genre: 'horror' )
+  end
+
+  def self.economics
+    Book.where(genre: 'horror' )
+  end
+
+  def self.history
+    Book.where(genre: 'horror' )
+  end
+
+  def self.science
+    Book.where(genre: 'horror' )
+  end
+
+  def self.psychology
+    Book.where(genre: 'horror' )
+  end
+
+  def self.fiction
+    Book.where(genre: 'horror' )
+  end
+
+  def self.computer_science
+    Book.where(genre: 'horror' )
+  end
+
+  def self.philosophy
+    Book.where(genre: 'horror' )
+  end
+
+  def self.nonfiction
+    Book.where(genre: 'horror' )
+  end
+
+  def self.comic
+    Book.where(genre: 'horror' )
+  end
   	
 	require 'csv'
   	def self.import_table(filepath='/home/ianobraczka/datasets/books.csv')
