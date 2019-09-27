@@ -13,4 +13,20 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
+//= require jquery
+//= require jquery_ujs
 //= require_tree .
+
+function like(a)
+{
+	a.parentElement.classList.add("liked");
+	a.text = "descurtir"
+	a.className = "unlike"
+}
+
+function unlike(a)
+{
+	a.parentElement.classList.remove("liked");
+	a.text = "curtir"
+	a.className = "like"
+}

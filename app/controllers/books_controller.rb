@@ -54,14 +54,22 @@ class BooksController < ApplicationController
 		book = Book.find(params[:book_id])
 		user = User.find(params[:user_id])
 		Like.create(book_id: book.id, user_id: user.id)
-		redirect_to book
+		if request.xhr?
+    		head :ok
+ 		else
+			redirect_to book
+		end
 	end
 
 	def unlike
 		book = Book.find(params[:book_id])
 		user = User.find(params[:user_id])
 		Like.where(book_id: book.id, user_id: user.id).destroy_all
-		redirect_to :root
+		if request.xhr?
+    		head :ok
+ 		else
+			redirect_to book
+		end
 	end
 
 end

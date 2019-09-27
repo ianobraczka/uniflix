@@ -107,11 +107,50 @@ body
 	font-weight: 400;
 
 	background-color: grey;
+
+	position: relative;
+}
+
+.book a
+{
+	color: black;
 }
 
 .book.liked
 {
 	background-color: green;
+}
+
+.book a.like
+{
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	padding: 5px;
+	border-radius: 20px;
+	border: solid 1px;
+	background-color: green;
+}
+
+.book a.like:hover
+{
+	background-color: red;
+}
+
+.book a.unlike
+{
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	padding: 5px;
+	border-radius: 20px;
+	border: solid 1px;
+	background-color: grey;
+}
+
+.book a.unlike:hover
+{
+	background-color: red;
 }
 
 .book:hover

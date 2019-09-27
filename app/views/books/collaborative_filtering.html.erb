@@ -20,6 +20,11 @@
 						<% i =+1 %>
 						</div>
 					<% end %>
+					<% unless (current_user.likes?(book.id)) %>
+					<%= link_to "curtir", like_path(book_id: book.id, user_id: current_user.id), method: :post, class: 'like', onclick: 'like(this);', remote: true %>
+					<% else %>
+						<%= link_to "descurtir", unlike_path(book_id: book.id, user_id: current_user.id), method: :post, class: 'unlike', onclick: 'unlike(this);', remote: true %>
+					<% end %>
 				</li> 
 			<% end %>
 	<% end %>
