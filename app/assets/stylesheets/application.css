@@ -126,3 +126,21 @@ body
 {
 	padding: 40px;
 }
+
+.sign-in
+{
+	padding: 5%;
+	font-size: 1.5em;
+}
+
+.new_user .field input{
+	line-height: 1em;
+	width: 25%;
+	height: 30px;
+	padding: 0px 10px;
+	letter-spacing: 1px;
+}
+
+.new_user .field input[type='checkbox']{
+	width: 18px;
+}
