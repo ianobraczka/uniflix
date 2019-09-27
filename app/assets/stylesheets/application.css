@@ -31,11 +31,8 @@ body
 
 .options
 {
+	border: 1px solid grey;
 	background-color: lightblue;
-}
-
-.options ul
-{
 	padding: 0px;
 	margin: 0px;
 	list-style: none;
@@ -43,13 +40,13 @@ body
 	display: block;
 }
 
+.options ul
+{
+}
+
 .options li
 {
-	min-width: 200px;
-	display: inline-block;
-	width: 23%;
 	padding: 10px 0px;
-	border: 1px solid grey;
 }
 
 .options li:hover
@@ -63,6 +60,10 @@ body
 	text-decoration: none;
 	text-transform: lowercase;
 	font-weight: bold;
+	display: inline-block;
+	min-width: 200px;
+	display: inline-block;
+	width: 23%;
 }
 
 .header h1 a
@@ -153,3 +154,4 @@ body
 	padding: 15px 5%;
 	font-size: 15px;
 }
+

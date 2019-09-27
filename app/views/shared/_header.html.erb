@@ -9,7 +9,6 @@
 	</div>
 </div>
 <div class="options">
-	<ul>
 		<%= link_to collaborative_filtering_path, class: 'option' do %>
 			<li>
 				Filtragem colaborativa
@@ -30,5 +29,30 @@
 			Curtidos
 		</li>
 		<% end %>
-	</ul>
 </div>
+
+<style type="text/css">
+	@media only screen and (max-width: 1000px) 
+	{
+  		.option 
+  		{
+    		width: 100% !important;
+    		font-size: 2em !important;
+    		border-bottom: solid 1px black !important;
+  		}
+
+  		.info
+  		{
+  			font-size: 10px;
+  		}
+
+  		.book
+  		{
+  			min-width: 40% !important; 
+  			font-size: 2em;
+  			padding: 35px 0px !important;
+  			min-height: 230px;
+  			margin: 20px !important;
+  		}
+	}
+</style>
