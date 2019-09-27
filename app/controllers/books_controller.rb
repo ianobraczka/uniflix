@@ -12,7 +12,19 @@ class BooksController < ApplicationController
 
 	# FILTRAGEM BASEADA EM CONTEÚDO
 	def query_filtering
-		@books = Book.all
+		if params[:category] && params[:category] != "todas"
+			@all = Book.where(genre: params[:category])
+		else
+			@all = Book.all
+		end
+		if params[:search] && !params[:search].empty?
+			@books1 = @all.where('title ILIKE ?', "%#{params[:search]}%")
+			@books2 = @all.where('author ILIKE ?', "%#{params[:search]}%")
+			@books = @books1 + @books2
+			@books = @books - (@books1 & @books2)
+		else
+			@books = @all
+		end
 	end
 
 	# FILTRAGEM BASEADA EM FILTRO COLABORATIVO

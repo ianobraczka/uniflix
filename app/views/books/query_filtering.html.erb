@@ -1,1 +1,10 @@
+<div class="info">
+	aqui estão apresentados livros baseados na query descrita e na categoria selecionada:
+	<Br><br>
+	<%= form_tag query_filtering_path, method: :get do %>
+  		<%= text_field_tag :search %> em
+  		<%= select_tag :category, options_for_select(["todas", "science", "data_science", "philosophy", "signal_processing", "mathematics", "economics", "history", "psychology", "fiction", "computer_science", "nonfiction", "comic" ]) %>
+  		<%= submit_tag 'Filtrar', name: nil %>
+	<% end %>
+</div>
 <%= render 'books' %>

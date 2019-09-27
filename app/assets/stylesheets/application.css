@@ -54,7 +54,7 @@ body
 
 .options li:hover
 {
-	background-color: lightgrey;
+	background-color: white;
 }
 
 .options .option
@@ -82,6 +82,7 @@ body
 	padding: 20px;
 	text-align: center;
 	margin: 0px;
+	background-color: #D2B48C;
 }
 
 .book
@@ -133,7 +134,8 @@ body
 	font-size: 1.5em;
 }
 
-.new_user .field input{
+.new_user .field input
+{
 	line-height: 1em;
 	width: 25%;
 	height: 30px;
@@ -143,4 +145,11 @@ body
 
 .new_user .field input[type='checkbox']{
 	width: 18px;
+}
+
+.info
+{
+	background-color: #DCDCDC;
+	padding: 15px 5%;
+	font-size: 15px;
 }

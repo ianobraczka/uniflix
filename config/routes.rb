@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'category/show'
 
   get 'books/query_filtering', as: :query_filtering
+  post 'books/query_filtering', as: :query_filtering_search
   get 'books/collaborative_filtering', as: :collaborative_filtering
   get 'books/past_filtering', as: :past_filtering
   get 'liked', controller: :books, as: :liked_book

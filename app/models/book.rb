@@ -7,10 +7,6 @@ class Book < ApplicationRecord
 	include SimpleRecommender::Recommendable
 	similar_by :users
 
-  def self.horror
-    Book.where(genre: 'horror')
-  end
-
   def self.signal_processing
     Book.where(genre: 'horror' )
   end

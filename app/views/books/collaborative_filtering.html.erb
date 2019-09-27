@@ -1,3 +1,12 @@
+<div class="info">
+	aqui estão apresentados livros selecionados em função da avaliação de outros usuários com o perfil próximo ao seu:
+	<br><br>
+	1) para cada usuário, separamos os livros curtidos em comum entre você e ele;
+	<p>
+	2) geramos um grau de similaridade baseado na quantidade de livros curtidos que vocês compartilham;
+	<p>
+	3) ordenamos todos os livros do sistema de acordo com os graus de similaridade apresentados.
+</div>
 <ul class="books">
 	<% i = 0 %>
 	<% @books.each do |book| %>
@@ -7,7 +16,7 @@
 					<%= "(#{book.author})" %>
 					<% if i < @weights.count %>
 						<div class="weight">
-						peso: <%= @weights[i] %>
+						<font color="red">grau: <%= @weights[i] %></font>
 						<% i =+1 %>
 						</div>
 					<% end %>
