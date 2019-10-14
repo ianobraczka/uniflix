@@ -5,22 +5,24 @@ class Movie < ApplicationRecord
 	has_many :users, through: :reviews
 
 	# -----------------------------------------------------------------------
-	# filtering logic
+	# FILTERING
 
 	# implementar
 	def self.collaborative_filter
-		return self.where("vote_avg > ?", 3)
+		return self.where("vote_avg > ?", 3.5)
 	end
 
 	# implementar
 	def self.content_based_filter
-		return self.where("vote_avg > ?", 3)
+		return self.where("vote_avg > ?", 3.5)
 	end
 
 	# implementar
 	def self.past_filter
-		return self.where("vote_avg > ?", 3)
+		return self.where("vote_avg > ?", 3.5)
 	end
+
+	# -----------------------------------------------------------------------
 
 	require 'csv'
 	def self.generate(filepath=Rails.public_path.join('movies.csv'))
