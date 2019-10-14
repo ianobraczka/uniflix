@@ -12,8 +12,8 @@ Rails.application.routes.draw do
   # post 'like/:book_id/:user_id', to: 'books#like', as: :like
   # post 'unlike/:book_id/:user_id', to: 'books#unlike', as: :unlike
 
-  get 'movies/query_filtering', as: :query_filtering
-  post 'movies/query_filtering', as: :query_filtering_search
+  get 'movies/content_based_filtering', as: :content_based_filtering
+  post 'movies/content_based_filtering', as: :content_based_filtering_search
   get 'movies/collaborative_filtering', as: :collaborative_filtering
   get 'movies/past_filtering', as: :past_filtering
   get 'liked', controller: :movies, as: :liked_book

@@ -4,6 +4,24 @@ class Movie < ApplicationRecord
 	has_many :reviews
 	has_many :users, through: :reviews
 
+	# -----------------------------------------------------------------------
+	# filtering logic
+
+	# implementar
+	def self.collaborative_filter
+		return self.where("vote_avg > ?", 3)
+	end
+
+	# implementar
+	def self.content_based_filter
+		return self.where("vote_avg > ?", 3)
+	end
+
+	# implementar
+	def self.past_filter
+		return self.where("vote_avg > ?", 3)
+	end
+
 	require 'csv'
 	def self.generate(filepath=Rails.public_path.join('movies.csv'))
 		CSV.foreach(filepath, headers: true) do |row|
@@ -46,7 +64,11 @@ class Movie < ApplicationRecord
 	end
 
 	def image
-
+		if poster_path
+			return ("https://image.tmdb.org/t/p/w500" + poster_path)
+		else
+			return "https://dentalmedsul.fbitsstatic.net/img/p/produto-nao-possui-foto-no-momento/sem-foto.jpg?w=420&h=420&v=no-change"
+		end
 	end
 
 	def update_ratings

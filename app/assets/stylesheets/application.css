@@ -111,12 +111,11 @@ body
 
 .movie .poster img
 {
-  	height : auto;
 }
 
 .movie .title
 {
-	height: 55px;
+	height: 75px;
 }
 
 .movie .rating

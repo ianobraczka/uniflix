@@ -11,7 +11,7 @@ class MoviesController < ApplicationController
 	end
 
 	# FILTRAGEM BASEADA EM CONTEÚDO
-	def query_filtering
+	def content_based_filtering
 		# if params[:category] && params[:category] != "todas"
 		# 	@all = Book.where(genre: params[:category])
 		# else
@@ -26,7 +26,7 @@ class MoviesController < ApplicationController
 		# 	@books = @all
 		# end
 
-		@movies = Movie.where("vote_avg > ?", 3).order('RANDOM()').first(50)
+		@movies = Movie.content_based_filter.order('RANDOM()').first(50)
 	end
 
 	# FILTRAGEM BASEADA EM FILTRO COLABORATIVO
@@ -40,13 +40,12 @@ class MoviesController < ApplicationController
 		# all = Book.all - recommended
 		# @books = recommended + all
 
-		@movies = Movie.where("vote_avg > ?", 3).order('RANDOM()').first(50)
+		@movies = Movie.collaborative_filter.order('RANDOM()').first(50)
 	end
 
 	# FILTRAGEM BASEADA NO PASSADO DO USUÁRIO
 	def past_filtering
-		@movies = Movie.where("vote_avg > ?", 3).order('RANDOM()').first(50)
-		mean = current_user.height_mean
+		@movies = Movie.past_filter.order('RANDOM()').first(50)
 	end
 
 	def liked

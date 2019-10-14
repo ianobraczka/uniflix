@@ -3,10 +3,10 @@
 		<%= link_to movie do %>
 			<li class="movie <%= movie.category.name %> <%= 'liked' if current_user.reviewed?(movie.id)%>">
 				<div class="poster">
-					<%= image_tag('https://uauposters.com.br/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/1/2/126420160405-uau-posters-filmes-filmes-the-godfather.jpg', height: '100', width: '100') %>
+					<%= image_tag(movie.image, height: '150', width: '100') %>
 				</div>
 				<div class="title">
-					<%= movie.title %><br><br>
+					<%= movie.title.truncate(30) %><br><br>
 				</div>
 				<div class="rating">
 					<% if movie.vote_avg.round == 1 %>
@@ -23,7 +23,7 @@
 					(<%= movie.vote_avg.round(2) %>)<br><br>
 				</div>
 				<% if current_user.reviewed?(movie.id) %>
-					<div class="your-rating" style="font-size: 10px; padding-top: 5px">
+					<div class="your-rating" style="font-size: 10px; padding-top: 5px; position: absolute; bottom: 23px;">
 						você avaliou esse filme com <%= current_user.rate(movie) %>
 					</div>
 				<% end %>
