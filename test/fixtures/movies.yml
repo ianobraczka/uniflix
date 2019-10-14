@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  old_id: 1
+  title: MyString
+  date: MyString
+  poster_path: MyString
+  vote_avg: 1.5
+  vote_count: 1
+  category: one
+
+two:
+  old_id: 1
+  title: MyString
+  date: MyString
+  poster_path: MyString
+  vote_avg: 1.5
+  vote_count: 1
+  category: two

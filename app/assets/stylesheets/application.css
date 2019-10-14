@@ -77,7 +77,7 @@ body
 	
 }
 
-.books
+.movies
 {
 	list-style: none;
 	padding: 20px;
@@ -86,16 +86,14 @@ body
 	background-color: #D2B48C;
 }
 
-.book
+.movie
 {
 	display: inline-block;
+	width: 180px;
+	height: 250px;
 
-	width: 15%;
-	height: 180px;
-	min-width: 150px;
-
-	margin: 5px;
-	padding: 12px 0px;
+	margin: 10px;
+	padding: 12px 15px;
 	line-height: 25px;
 	border:1px solid black;
 
@@ -111,17 +109,32 @@ body
 	position: relative;
 }
 
-.book a
+.movie .poster img
+{
+  	height : auto;
+}
+
+.movie .title
+{
+	height: 55px;
+}
+
+.movie .rating
+{
+	height: 10px;
+}
+
+.movie a
 {
 	color: black;
 }
 
-.book.liked
+.movie.liked
 {
 	background-color: green;
 }
 
-.book a.like
+.movie a.like
 {
 	position: absolute;
 	bottom: 10px;
@@ -132,12 +145,12 @@ body
 	background-color: green;
 }
 
-.book a.like:hover
+.movie a.like:hover
 {
 	background-color: red;
 }
 
-.book a.unlike
+.movie a.unlike
 {
 	position: absolute;
 	bottom: 10px;
@@ -148,22 +161,22 @@ body
 	background-color: grey;
 }
 
-.book a.unlike:hover
+.movie a.unlike:hover
 {
 	background-color: red;
 }
 
-.book:hover
+.movie:hover
 {
 	background-color: yellow;
 } 
 
-.books a
+.movies a
 {
 	text-decoration: none;
 }
 
-.book-info
+.movie-info
 {
 	padding: 40px;
 }

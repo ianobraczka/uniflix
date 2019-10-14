@@ -6,17 +6,31 @@ class User < ApplicationRecord
 	has_many :likes 
 	has_many :books, through: :likes
 
+    has_many :reviews
+    has_many :movies, through: :reviews
+
 	# Include default devise modules. Others available are:
 	# :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 	devise :database_authenticatable, :registerable,
 	    :recoverable, :rememberable, :validatable
 
-    def likes?(book_id)
-    	if self.books.include? Book.find(book_id)
-    		return true
-    	else
-    		return false
-    	end
+    def self.generate
+        for i in 1..670
+            email = "user" + i.to_s + "@gmail.com"
+            User.create!({:email => email, old_id: i, :password => "111111", :password_confirmation => "111111" })
+        end
+    end
+
+    def reviewed?(movie_id)
+        if self.movies.include? Movie.find(movie_id)
+            return true
+        else
+            return false
+        end
+    end
+
+    def rate(movie)
+        self.reviews.find_by(movie_id: movie.id).rating
     end
 
     def height_mean
@@ -34,4 +48,5 @@ class User < ApplicationRecord
     def recommended_books
         self.recommend_books
     end
+
 end

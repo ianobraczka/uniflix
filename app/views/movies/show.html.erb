@@ -1,0 +1,10 @@
+<div class="movie-info">
+	<h1> <%= @movie.title %> </h1>
+	<br><br>
+
+	<%= form_tag rate_path(user_id: current_user.id, movie_id: @movie.id), method: :post do %>
+  		<%= number_field_tag :rating %>
+  		<%= submit_tag 'Avaliar' %>
+	<% end %>
+
+</div>

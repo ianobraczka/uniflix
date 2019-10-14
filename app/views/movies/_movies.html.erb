@@ -1,0 +1,33 @@
+<ul class="movies">
+	<% @movies.each do |movie| %>
+		<%= link_to movie do %>
+			<li class="movie <%= movie.category.name %> <%= 'liked' if current_user.reviewed?(movie.id)%>">
+				<div class="poster">
+					<%= image_tag('https://uauposters.com.br/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/1/2/126420160405-uau-posters-filmes-filmes-the-godfather.jpg', height: '100', width: '100') %>
+				</div>
+				<div class="title">
+					<%= movie.title %><br><br>
+				</div>
+				<div class="rating">
+					<% if movie.vote_avg.round == 1 %>
+						<%= image_tag('/one-star.png', size: '100x20') %>
+					<% elsif movie.vote_avg.round == 2 %>
+						<%= image_tag('/two-star.png', size: '100x20') %>
+					<% elsif movie.vote_avg.round == 3 %>
+						<%= image_tag('/three-star.png', size: '100x20') %>
+					<% elsif movie.vote_avg.round == 4 %>
+						<%= image_tag('/four-star.png', size: '100x20') %>	
+					<% elsif movie.vote_avg.round == 5 %>
+						<%= image_tag('/five-star.png', size: '100x20') %>
+					<% end %>
+					(<%= movie.vote_avg.round(2) %>)<br><br>
+				</div>
+				<% if current_user.reviewed?(movie.id) %>
+					<div class="your-rating" style="font-size: 10px; padding-top: 5px">
+						você avaliou esse filme com <%= current_user.rate(movie) %>
+					</div>
+				<% end %>
+			</li>
+		<% end %>
+	<% end %>
+</ul>

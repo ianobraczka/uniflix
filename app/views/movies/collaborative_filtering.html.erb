@@ -1,0 +1,27 @@
+<div class="info">
+	aqui estão apresentados filmes selecionados em função da avaliação de outros usuários com o perfil próximo ao seu:
+	<br><br>
+	1) 
+	<p>
+	2) 
+	<p>
+	3) 
+</div>
+<ul class="movies">
+	<% i = 0 %>
+	<% @movies.each do |movie| %>
+			<%= link_to movie do %>
+				<li class="movie <%= movie.category.name %> <%= 'liked' if current_user.reviewed?(movie.id)%>">
+					<%= movie.title %><br><br>
+					<%= movie.vote_avg.round(2) %>
+					<% if 1 == 0 && i < @weights.count %>
+						<div class="weight">
+						<font color="red">grau: <%= @weights[i] %></font>
+						<% i =+1 %>
+						</div>
+					<% end %>
+				</li> 
+			<% end %>
+	<% end %>
+</ul>
+
