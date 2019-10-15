@@ -1,11 +1,14 @@
 <div class="info">
-	aqui estão apresentados filmes selecionados em função da avaliação de outros usuários com o perfil próximo ao seu:
-	<br><br>
-	1) 
-	<p>
-	2) 
-	<p>
-	3) 
+	Para a filtragem colaborativa seguimos o seguinte processo: 
+	<br>
+	1) Buscamos os 10 usuários mais próximos do usuário logado, com base em Pearson;
+	<br>
+	2) Identificamos os filmes que ainda não foram classificados pelo usuário logado;
+	<br>
+	3) Iteramos por esses filmes aplicando a fórmula de filtragem colaborativa para cada um deles;
+	<br>
+	3.1) Adicionamos o filme ao vetor de recomendações caso o resultado seja superior a 3.5.
+	<br>
 </div>
 
 <ul class="movies" style="display: none;">

@@ -18,4 +18,12 @@ class ReviewsController < ApplicationController
 		redirect_to :root
 	end
 
+	def index
+		@reviews = Review.all
+		respond_to do |format|
+		  format.html
+		  format.csv { send_data @reviews.to_csv }
+		end
+	end
+
 end

@@ -1,5 +1,7 @@
 class Category < ApplicationRecord
 
+	has_many :movies
+
 	def self.set_category(name)
 		if self.where(name: name).empty?
 			new_category = self.create!(name: name)

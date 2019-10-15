@@ -4,17 +4,23 @@ class Movie < ApplicationRecord
 	has_many :reviews
 	has_many :users, through: :reviews
 
+	require 'csv'
+
+	def self.update_recomendations_hash(user)
+		@@collaborative_recomendations[user.id] = user.content_based
+	end
+
+
 	# -----------------------------------------------------------------------
 	# FILTERING
 
-	# implementar
-	def self.collaborative_filter
-		return self.where("vote_avg > ?", 3.5)
+	def self.collaborative_filter(user)
+		return get_by_distance(user)#.where("vote_avg > ?", 3.5)
 	end
 
-	# implementar
-	def self.content_based_filter
-		return self.where("vote_avg > ?", 3.5)
+	def self.content_based_filter(user)
+		return user.content_based
+		#return self.where("vote_avg > ?", 3.5)
 	end
 
 	# implementar
@@ -22,9 +28,58 @@ class Movie < ApplicationRecord
 		return self.where("vote_avg > ?", 3.5)
 	end
 
+	def self.get_by_distance(user_id)
+		user = User.find(user_id)
+		target_users = User.find(user_id).similar_users_hash
+		
+		pearson_sum = 0
+		target_movies = []
+
+		puts "Os usuários selecionados pela proximidade com o usuário corrente foram: "
+		target_users.each do |u|
+			unless u[0] == "0"
+				puts User.find(u[0]).email
+				pearson_sum = pearson_sum + (1-u[1])
+				puts "somando pearsons: " + pearson_sum.to_s
+				target_movies = target_movies + (User.find(u[0]).movies.all - user.movies)
+			end
+		end
+
+		final_target_movies = []
+
+		puts "Os filmes avaliados pelos usuários-alvo e ainda não avaliados pelo usuário corrente foram: "
+		target_movies.each do |movie|
+			
+			delta = 0
+			target_users.each do |tu|
+				if User.find(tu[0]).movies.include?(movie)
+					review = Review.find_by(user_id: User.find(tu[0]), movie_id: movie.id)
+					delta = delta + (review.rating - movie.vote_avg)
+				end
+			end
+
+			puts movie.title.upcase
+			puts "Média de avaliações de " + movie.title + ": " + user.movies.average(:rating).to_f.to_s
+		
+			puts "Delta: " + delta.to_s
+			puts "Somatório dos valores de Pearson: " + pearson_sum.to_s
+
+			rec = user.reviews.average(:rating).to_f + ((delta)/pearson_sum)
+			puts "Resultado: " + rec.to_s
+
+			#binding.pry
+
+			if rec > 3.5
+				puts "> 3.5 (entra na lista)"
+				final_target_movies << movie
+			else
+				puts "< 3.5 (não entra na lista)"
+			end
+		end
+	end
+		
 	# -----------------------------------------------------------------------
 
-	require 'csv'
 	def self.generate(filepath=Rails.public_path.join('movies.csv'))
 		CSV.foreach(filepath, headers: true) do |row|
 			old_id = row['id'].to_i
@@ -53,6 +108,14 @@ class Movie < ApplicationRecord
 				movie.vote_avg = 0
 				movie.vote_count = 0
 				movie.save!
+			end
+		end
+	end
+
+	def self.destroy_useless
+		self.where(vote_count: 0).each do |movie|
+			if movie.reviews.empty?
+				movie.destroy!
 			end
 		end
 	end

@@ -1,3 +1,18 @@
+class Array
+
+  def to_activerecord_relation
+    return ApplicationRecord.none if self.empty?
+
+    clazzes = self.collect(&:class).uniq
+    raise 'Array cannot be converted to ActiveRecord::Relation since it does not have same elements' if clazzes.size > 1
+
+    clazz = clazzes.first
+    raise 'Element class is not ApplicationRecord and as such cannot be converted' unless clazz.ancestors.include? ApplicationRecord
+
+    clazz.where(id: self.collect(&:id))
+  end
+end
+
 class MoviesController < ApplicationController
 
 	before_action :authenticate_user!
@@ -12,40 +27,18 @@ class MoviesController < ApplicationController
 
 	# FILTRAGEM BASEADA EM CONTEÚDO
 	def content_based_filtering
-		# if params[:category] && params[:category] != "todas"
-		# 	@all = Book.where(genre: params[:category])
-		# else
-		# 	@all = Book.all
-		# end
-		# if params[:search] && !params[:search].empty?
-		# 	@books1 = @all.where('title ILIKE ?', "%#{params[:search]}%")
-		# 	@books2 = @all.where('author ILIKE ?', "%#{params[:search]}%")
-		# 	@books = @books1 + @books2
-		# 	@books = @books - (@books1 & @books2)
-		# else
-		# 	@books = @all
-		# end
-
-		@movies = Movie.content_based_filter.order('RANDOM()').first(50)
+		@movies = Movie.content_based_filter(current_user)
 	end
 
 	# FILTRAGEM BASEADA EM FILTRO COLABORATIVO
 	def collaborative_filtering
-		# require 'matrix'
-		# a = current_user.recommended_books 
-		# mat = Matrix[ *a ]
-		# @weights = mat.column(1).to_a
-		# recommended = mat.column(0).to_a
-
-		# all = Book.all - recommended
-		# @books = recommended + all
-
-		@movies = Movie.collaborative_filter.order('RANDOM()').first(50)
+		@movies = Movie.collaborative_filter(current_user.id)
 	end
 
 	# FILTRAGEM BASEADA NO PASSADO DO USUÁRIO
 	def past_filtering
-		@movies = Movie.past_filter.order('RANDOM()').first(50)
+		@movies = []
+		#@movies = Movie.past_filter.order('RANDOM()').first(50)
 	end
 
 	def liked

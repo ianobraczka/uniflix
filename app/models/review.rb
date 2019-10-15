@@ -22,4 +22,25 @@ class Review < ApplicationRecord
   		end
 	end
 
+	def self.to_csv(options = {})
+		array = ["movie_id", "category_id"]
+		for i in 1..User.count-1
+			array << i
+		end
+		CSV.generate(options) do |csv|
+		    csv << array
+		    Movie.all.each do |movie|
+		    	reviews_array = [movie.id, movie.category.id]
+		    	for user in User.all
+		    		if user.reviewed?(movie.id)
+		    			reviews_array << Review.where(user_id: user.id).where(movie_id: movie.id).first.rating
+		    		else
+		    			reviews_array << ""
+		    		end
+		    	end
+		      	csv << reviews_array
+		    end
+		end
+	end
+
 end

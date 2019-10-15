@@ -14,5 +14,6 @@
   <body>
     <%= render 'shared/header' %>
     <%= yield %>
+    <% link_to "CSV", reviews_path(format: "csv") %>
   </body>
 </html>

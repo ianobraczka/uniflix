@@ -1,5 +1,14 @@
 <div class="info">
-	aqui estão apresentados livros baseados na categoria selecionada:	
+	A Recomendação baseada em Filtragem por Conteúdo funciona de tal modo: 
+	<br><br>
+	1) Identificamos os filmes que ainda não foram classificados pelo usuário logado;
+	<br>
+	2) Iteramos por esses filmes aplicando a fórmula de filtragem colaborativa para cada um deles;
+	2.1) Para cada filme, buscamos a média das votações de deste filme, a nota média da categoria deste filme, a média das notas que o usuário logado deu para esta categoria e aplicamos o seguinte cálculo: <br><br>
+
+	Recomendação = (Nota média do filme X Média das notas do usuário logado para filmes de mesma categoria do filme alvo) / Nota média de todos os votos dados para os filmes da categoria do filme alvo, ou seja todos os usuários
+	<br>
+	3.2) Adicionamos o filme ao vetor de recomendações caso o resultado seja superior a 3.5.
 </div>
 
 <%= render 'movies' %>
