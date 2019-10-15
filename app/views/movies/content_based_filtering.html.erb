@@ -3,16 +3,19 @@
 </script>
 
 <div class="info">
-	A Recomendação baseada em Filtragem por Conteúdo funciona de tal modo: 
+	<b>Para a filtragem por conteúdo seguimos o seguinte processo:</b>
 	<br><br>
 	1) Identificamos os filmes que ainda não foram classificados pelo usuário logado;
 	<br>
-	2) Iteramos por esses filmes aplicando a fórmula de filtragem colaborativa para cada um deles;
-	2.1) Para cada filme, buscamos a média das votações de deste filme, a nota média da categoria deste filme, a média das notas que o usuário logado deu para esta categoria e aplicamos o seguinte cálculo: <br><br>
+	<p>
+	2) Iteramos por esses filmes aplicando a fórmula de filtragem por conteúdo para cada um deles:
+	<br>
+	<p>
+	2.1) Para cada filme, buscamos a média das votações de deste filme, a nota média da categoria deste filme e a média das notas que o usuário logado deu para esta categoria. Então aplicamos o seguinte cálculo para alcançar a nota esperada: <br><br>
 
 	Recomendação = (Nota média do filme X Média das notas do usuário logado para filmes de mesma categoria do filme alvo) / Nota média de todos os votos dados para os filmes da categoria do filme alvo, ou seja todos os usuários
-	<br>
-	3.2) Adicionamos o filme ao vetor de recomendações caso o resultado seja superior a 3.5.
+	<br><br>
+	3.2) Adicionamos o filme ao vetor de recomendações caso esse resultado seja superior a 3.5.
 </div>
 
 <%= render 'movies' %>

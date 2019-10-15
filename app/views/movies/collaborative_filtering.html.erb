@@ -3,15 +3,21 @@
 </script>
 
 <div class="info">
-	Para a filtragem colaborativa seguimos o seguinte processo: 
+	<b>Para a filtragem colaborativa seguimos o seguinte processo:</b>
+	<br><br>
+	1) Buscamos os 10 usuários mais próximos do usuário logado, com base nas tabelas de Pearson e Distâncias;
 	<br>
-	1) Buscamos os 10 usuários mais próximos do usuário logado, com base em Pearson;
-	<br>
+	<p>
 	2) Identificamos os filmes que ainda não foram classificados pelo usuário logado;
 	<br>
-	3) Iteramos por esses filmes aplicando a fórmula de filtragem colaborativa para cada um deles;
+	<p>
+	3) Iteramos por esses filmes aplicando a fórmula de filtragem colaborativa para cada um deles:
 	<br>
-	3.1) Adicionamos o filme ao vetor de recomendações caso o resultado seja superior a 3.5.
+	<p>
+	3.1) Utilizando a média do filme a somatória dos valores Pearson e as diferenças entre médias (geral e do usuário target), calculamos um fator de recomendação para prever a nota dada pelo usuário logado.;
+	<br>
+	<p>
+	3.2) Adicionamos o filme ao vetor de recomendações caso esse resultado seja superior a 3.5.
 	<br>
 </div>
 
