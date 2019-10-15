@@ -67,6 +67,7 @@ class User < ApplicationRecord
             end
         end
         target_users = users.sort_by {|_key, value| value}.first(3)
+        #binding.pry
     end
 
     def movies_to_watch
@@ -92,11 +93,13 @@ class User < ApplicationRecord
 
                 user_category_average = user_category_average/self.movies.where(category_id: category_id).count
 
-                puts "Média geral do filme: " + movie_average.to_s
+                puts "Média geral do filme: " + movie.title + " (id " + movie.id.to_s + "): " + movie_average.to_s
                 puts "Média da categoria " + movie.category.name + ": " + category_average.to_s
                 puts "Média de avaliações do usuário na categoria: " + user_category_average.to_s
 
                 rec = (movie_average*user_category_average)/category_average
+
+                puts "Nota esperada para o usuário: " + rec.to_s
 
                 #binding.pry
 

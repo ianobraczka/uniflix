@@ -59,13 +59,13 @@ class Movie < ApplicationRecord
 			end
 
 			puts movie.title.upcase
-			puts "Média de avaliações de " + movie.title + ": " + user.movies.average(:rating).to_f.to_s
+			puts "Média de avaliações de " + movie.title + "(id " + movie.id.to_s + "): " + user.movies.average(:rating).to_f.to_s
 		
 			puts "Delta: " + delta.to_s
 			puts "Somatório dos valores de Pearson: " + pearson_sum.to_s
 
 			rec = user.reviews.average(:rating).to_f + ((delta)/pearson_sum)
-			puts "Resultado: " + rec.to_s
+			puts "Resultado (nota esperada para o usuário: " + rec.to_s
 
 			#binding.pry
 
