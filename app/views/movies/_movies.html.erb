@@ -1,4 +1,7 @@
 <ul class="movies">
+	<div class="count" style="padding-bottom: 10px; text-transform: uppercase; font-weight: bold">
+		<%= @recommendations_count %> recomendações encontradas para o usuário <%= current_user.name %>
+	</div>
 	<% @movies.each do |movie| %>
 		<%= link_to movie do %>
 			<li class="movie <%= movie.category.name %> <%= 'liked' if current_user.reviewed?(movie.id)%>">

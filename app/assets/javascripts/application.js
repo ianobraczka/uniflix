@@ -30,3 +30,11 @@ function unlike(a)
 	a.text = "curtir"
 	a.className = "like"
 }
+
+function slideInfo() 
+{
+	elem = document.getElementsByClassName('info')[0];
+	elem.classList.toggle('hide');
+}
+
+window.setTimeout("slideInfo();", 10000);

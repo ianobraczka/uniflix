@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_14_133847) do
+ActiveRecord::Schema.define(version: 2019_10_16_125659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "intarray"
@@ -34,6 +34,31 @@ ActiveRecord::Schema.define(version: 2019_10_14_133847) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "colab_based_recommendations", force: :cascade do |t|
+    t.bigint "user_id"
+    t.integer "movies_ids", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "updated"
+    t.index ["user_id"], name: "index_colab_based_recommendations_on_user_id"
+  end
+
+  create_table "content_based_recommendations", force: :cascade do |t|
+    t.bigint "user_id"
+    t.integer "movies_ids", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "updated"
+    t.index ["user_id"], name: "index_content_based_recommendations_on_user_id"
+  end
+
+  create_table "content_recommendations", force: :cascade do |t|
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_content_recommendations_on_user_id"
+  end
+
   create_table "likes", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "book_id"
@@ -54,6 +79,15 @@ ActiveRecord::Schema.define(version: 2019_10_14_133847) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_movies_on_category_id"
+  end
+
+  create_table "past_based_recommendations", force: :cascade do |t|
+    t.bigint "user_id"
+    t.integer "movies_ids", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "updated"
+    t.index ["user_id"], name: "index_past_based_recommendations_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -80,9 +114,13 @@ ActiveRecord::Schema.define(version: 2019_10_14_133847) do
   end
 
   add_foreign_key "books", "categories"
+  add_foreign_key "colab_based_recommendations", "users"
+  add_foreign_key "content_based_recommendations", "users"
+  add_foreign_key "content_recommendations", "users"
   add_foreign_key "likes", "books"
   add_foreign_key "likes", "users"
   add_foreign_key "movies", "categories"
+  add_foreign_key "past_based_recommendations", "users"
   add_foreign_key "reviews", "movies"
   add_foreign_key "reviews", "users"
 end

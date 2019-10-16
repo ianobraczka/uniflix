@@ -14,14 +14,16 @@ class User < ApplicationRecord
 	devise :database_authenticatable, :registerable,
 	    :recoverable, :rememberable, :validatable
 
-    @@content_based = []
-    @@collaborative_based = []
 
     def self.generate
         for i in 1..670
             email = "user" + i.to_s + "@gmail.com"
             User.create!({:email => email, old_id: i, :password => "111111", :password_confirmation => "111111" })
         end
+    end
+
+    def name
+        return self.email.split("@").first
     end
 
     def reviewed?(movie_id)
@@ -52,6 +54,10 @@ class User < ApplicationRecord
         self.recommend_books
     end
 
+    def movies_to_watch
+        return Movie.all - self.movies
+    end
+
     def similar_users_hash(filepath=Rails.public_path.join('pearson1.csv'))
         users = Hash.new
         target_users_array = Hash.new
@@ -70,11 +76,58 @@ class User < ApplicationRecord
         #binding.pry
     end
 
-    def movies_to_watch
-        return Movie.all - self.movies
+    def get_colab_based
+        user = self
+        user_id = self.id
+        target_users = User.find(user_id).similar_users_hash
+        
+        pearson_sum = 0
+        target_movies = []
+
+        puts "Os usuários selecionados pela proximidade com o usuário corrente foram: "
+        target_users.each do |u|
+            unless u[0] == "0"
+                puts User.find(u[0]).email
+                pearson_sum = pearson_sum + (1-u[1])
+                puts "somando pearsons: " + pearson_sum.to_s
+                target_movies = target_movies + (User.find(u[0]).movies.all - user.movies)
+            end
+        end
+
+        final_target_movies = []
+
+        puts "Os filmes avaliados pelos usuários-alvo e ainda não avaliados pelo usuário corrente foram: "
+        target_movies.each do |movie|
+            
+            delta = 0
+            target_users.each do |tu|
+                if User.find(tu[0]).movies.include?(movie)
+                    review = Review.find_by(user_id: User.find(tu[0]), movie_id: movie.id)
+                    delta = delta + (review.rating - movie.vote_avg)
+                end
+            end
+
+            puts movie.title.upcase
+            puts "Média de avaliações de " + movie.title + "(id " + movie.id.to_s + "): " + user.movies.average(:rating).to_f.to_s
+        
+            puts "Delta: " + delta.to_s
+            puts "Somatório dos valores de Pearson: " + pearson_sum.to_s
+
+            rec = user.reviews.average(:rating).to_f + ((delta)/pearson_sum)
+            puts "Resultado (nota esperada para o usuário: " + rec.to_s
+
+            #binding.pry
+
+            if rec > 3.5
+                puts "> 3.5 (entra na lista)"
+                final_target_movies << movie
+            else
+                puts "< 3.5 (não entra na lista)"
+            end
+        end
     end
 
-    def content_based
+    def get_content_based
         ranked_hash = Hash.new
         recommendations = []
         self.movies_to_watch.each do |movie|
@@ -113,6 +166,57 @@ class User < ApplicationRecord
         end
 
         return recommendations
+    end
+
+    def get_past_based
+    end
+
+    def colab_based
+        recommendation = ColabBasedRecommendation.find_by(user_id: self.id)
+        if recommendation
+            if recommendation.is_valid?
+                return recommendation.movies
+            else
+                recommendation.update
+                return recommendation.movies
+            end
+        else
+            cb = self.get_colab_based
+            ColabBasedRecommendation.generate(self.id, cb)
+            return cb
+        end
+    end
+
+    def content_based
+        recommendation = ContentBasedRecommendation.find_by(user_id: self.id)
+        if recommendation
+            if recommendation.is_valid?
+                return recommendation.movies
+            else
+                recommendation.update
+                return recommendation.movies
+            end
+        else
+            cb = self.get_content_based
+            ContentBasedRecommendation.generate(self.id, cb)
+            return cb
+        end
+    end
+
+    def past_based
+        recommendation = PastBasedRecommendation.find_by(user_id: self.id)
+        if recommendation
+            if recommendation.is_valid?
+                return recommendation.movies
+            else
+                recommendation.update
+                return recommendation.movies
+            end
+        else
+            pb = self.get_past_based
+            PastBasedRecommendation.generate(self.id, pb)
+            return pb
+        end
     end
 
 end
