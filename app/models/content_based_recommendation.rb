@@ -3,7 +3,7 @@ class ContentBasedRecommendation < ApplicationRecord
 
   def self.generate(user_id, movies)
   	recommendation = self.new(user_id: user_id)
-    recommendation.date = Date.today
+    recommendation.updated = Date.today
   	movies.each do |movie|
   		recommendation.movies_ids.push(movie.id)
   	end
@@ -15,7 +15,7 @@ class ContentBasedRecommendation < ApplicationRecord
   	self.user.content_based.each do |movie|
   		self.movies.push(movie.id)
   	end
-    self.date = Date.today
+    self.updated = Date.today
   	self.save!
   end
 
