@@ -94,6 +94,8 @@ class User < ApplicationRecord
             end
         end
 
+        target_movies = target_movies.select{|movie| movie.vote_avg > 3.5}
+
         final_target_movies = []
 
         puts "Os filmes avaliados pelos usuários-alvo e ainda não avaliados pelo usuário corrente foram: "
@@ -130,7 +132,8 @@ class User < ApplicationRecord
     def get_content_based
         ranked_hash = Hash.new
         recommendations = []
-        self.movies_to_watch.each do |movie|
+        to_watch = self.movies_to_watch.select{|movie| movie.vote_avg > 3.5}
+        to_watch.each do |movie|
             movie_id = movie.id
             category_id = movie.category.id
 
