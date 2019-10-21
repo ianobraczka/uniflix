@@ -28,21 +28,24 @@ class MoviesController < ApplicationController
 	# FILTRAGEM BASEADA EM CONTEÚDO
 	def content_based_filtering
 		recommendations = Movie.content_based_filter(current_user)
+		movies = recommendations + (Movie.all. - recommendations)
 		@recommendations_count = recommendations.count
-		@movies = recommendations.first(30)
+		@movies = movies.first(30)
 	end
 
 	# FILTRAGEM BASEADA EM FILTRO COLABORATIVO
 	def collaborative_filtering
 		recommendations = Movie.collaborative_filter(current_user)
+		movies = recommendations + (Movie.all. - recommendations)
 		@recommendations_count = recommendations.count
 		@movies = recommendations.first(30)
 	end
 
 	# FILTRAGEM BASEADA NO PASSADO DO USUÁRIO
 	def past_filtering
-		@movies = []
-		#@movies = Movie.past_filter.order('RANDOM()').first(50)
+		recommendations = Movie.past_filter(current_user)
+		movies = recommendations + (Movie.all. - recommendations)
+		@movies = recommendations.first(30)
 	end
 
 	def liked

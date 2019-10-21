@@ -58,22 +58,36 @@ class User < ApplicationRecord
         return Movie.all - self.movies
     end
 
-    def similar_users_hash(filepath=Rails.public_path.join('pearson1.csv'))
+    def liked_movies
+        movies = []
+        self.reviews.each do |review|
+            if review.rating >= 3
+                movies.push(review.movie)
+            end
+        end
+        return movies
+    end
+
+    # metodo para ler usuarios mais proximos (distancia = 1 - pearson)
+    def similar_users_hash(filepath=Rails.public_path.join('pearson-result.csv'))
         users = Hash.new
-        target_users_array = Hash.new
-        target_movies_array = Hash.new
-        CSV.foreach(filepath, headers: true) do |row|
+        CSV.foreach(filepath, headers: true, :col_sep => ";") do |row|
             print row
             if row['user_id'].to_i == self.id
                 for i in 1..(row.size-1)
-                    unless row[i].nil?
-                        users[i] = row[i].gsub(",", ".").to_f
+                    if i != self.id
+                        unless row[i].nil?
+                            users[i] = row[i].gsub(",", ".").to_f
+                        end
                     end
                 end
             end
         end
         target_users = users.sort_by {|_key, value| value}.first(3)
+
         #binding.pry
+
+        return target_users
     end
 
     def get_colab_based
@@ -157,8 +171,6 @@ class User < ApplicationRecord
 
                 puts "Nota esperada para o usuário: " + rec.to_s
 
-                #binding.pry
-
                 if rec > 3.5
                     puts "> 3.5 (entra na lista)"
                     recommendations << movie
@@ -172,6 +184,40 @@ class User < ApplicationRecord
     end
 
     def get_past_based
+
+        user = self
+        user_id = self.id
+        target_users = User.find(user_id).similar_users_hash
+
+        target_movies = []
+
+        puts "Os usuários selecionados pela proximidade com o usuário corrente foram: "
+        target_users.each do |u|
+            unless u[0] == "0"
+                puts User.find(u[0]).email
+                target_movies = target_movies + (User.find(u[0]).movies.all - user.movies)
+            end
+        end
+
+        target_movies = target_movies.select{|movie| movie.vote_avg > 3.5}
+
+        recommendations = []
+
+        self.liked_movies.each do |liked_movie|
+            target_movies.each do |target_movie|
+                suporte = ( liked_movie.reviews.count.to_f/target_movie.reviews.count.to_f ) * 100
+                puts "Suporte=" + suporte.to_s + "%"
+                confianca  = ( liked_movie.reviews.where("rating >= ?", 3).count.to_f/target_movie.reviews.where("rating >= ?", 3).count.to_f ) * 100
+                puts "Confiança=" + confianca.to_s + "%"
+
+                if suporte > 30 && confianca > 70
+                    puts "entra na lista"
+                    recommendations << target_movie
+                end
+            end
+        end
+
+        return recommendations
     end
 
     def colab_based

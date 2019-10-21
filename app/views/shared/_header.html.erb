@@ -21,7 +21,7 @@
 		<% end %>
 		<%= link_to past_filtering_path, class: 'option' do %>
 			<li id="past">
-				Passado
+				?
 			</li>
 		<% end %>
 		<%= link_to liked_book_path, class: 'option' do %>
@@ -69,6 +69,28 @@
   		.count
   		{
   			display: none;
+  		}
+
+  		.sign-in
+  		{
+  			font-size: 3.5em !important;
+  		}
+
+  		.sign-in input
+  		{
+  			width: 50% !important;
+  			height: 50px !important;
+  			font-size: 35px !important;
+  		}
+
+  		#remember
+  		{
+  			display: none !important;
+  		}
+
+  		.user-area
+  		{
+  			font-size: 30px !important;
   		}
 	}
 </style>

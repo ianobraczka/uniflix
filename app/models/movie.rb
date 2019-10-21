@@ -19,8 +19,8 @@ class Movie < ApplicationRecord
 	end
 
 	# implementar
-	def self.past_filter
-		return self.where("vote_avg > ?", 3.5)
+	def self.past_filter(user)
+		return user.past_based
 	end
 		
 	# -----------------------------------------------------------------------

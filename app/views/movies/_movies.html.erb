@@ -1,6 +1,6 @@
 <ul class="movies">
 	<div class="count" style="padding-bottom: 10px; text-transform: uppercase; font-weight: bold">
-		<%= @recommendations_count %> recomendações encontradas para <%= current_user.name %>
+		<% unless @recommendations_count.nil? %><%= @recommendations_count %> recomendações encontradas para <%= current_user.name %><% end %>
 	</div>
 	<% @movies.each do |movie| %>
 		<%= link_to movie do %>
