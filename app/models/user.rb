@@ -217,7 +217,7 @@ class User < ApplicationRecord
             end
         end
 
-        return recommendations
+        return recommendations.uniq
     end
 
     def colab_based
