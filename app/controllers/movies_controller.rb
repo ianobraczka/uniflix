@@ -45,6 +45,7 @@ class MoviesController < ApplicationController
 	def past_filtering
 		recommendations = Movie.past_filter(current_user)
 		movies = recommendations + (Movie.all. - recommendations)
+		@recommendations_count = recommendations.count
 		@movies = recommendations.first(30)
 	end
 
