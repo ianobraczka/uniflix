@@ -122,10 +122,13 @@ class User < ApplicationRecord
         target_movies.each do |movie|
             
             delta = 0
+            users = []
+
             target_users.each do |tu|
+                users << User.find(tu[0])
                 if User.find(tu[0]).movies.include?(movie)
                     review = Review.find_by(user_id: User.find(tu[0]), movie_id: movie.id)
-                    delta = delta + (review.rating - movie.vote_avg)
+                    delta = delta + (1-tu[1])*(review.rating - movie.vote_avg)
                 end
             end
 
@@ -138,9 +141,7 @@ class User < ApplicationRecord
             rec = user.reviews.average(:rating).to_f + ((delta)/pearson_sum)
             puts "Resultado (nota esperada para o usuário: " + rec.to_s
 
-            #binding.pry
-
-            if rec > 3.5
+            if rec > 3.5 && !(users - movie.users).empty?
                 puts "> 3.5 (entra na lista)"
                 final_target_movies << movie
             else
@@ -214,7 +215,8 @@ class User < ApplicationRecord
         target_movies.each do |target_movie|
             suporte = ( liked_movie.reviews.count.to_f/target_movie.reviews.count.to_f ) * 100
             puts "Suporte=" + suporte.to_s + "%"
-            confianca  = ( liked_movie.reviews.where("rating >= ?", 3).count.to_f/target_movie.reviews.where("rating >= ?", 3).count.to_f ) * 100
+
+            confianca  = ( Review.count_interception(liked_movie, target_movie)/target_movie.reviews.where("rating >= ?", 3).count.to_f ) * 100
             puts "Confiança=" + confianca.to_s + "%"
 
             if suporte > 30 && confianca > 70
@@ -222,7 +224,6 @@ class User < ApplicationRecord
                 recommendations << target_movie
             end
 
-            #binding.pry
         end
 
         return recommendations.uniq
@@ -274,6 +275,12 @@ class User < ApplicationRecord
             PastBasedRecommendation.generate(self.id, pb)
             return pb
         end
+    end
+
+    def self.flush_recommendations
+        PastBasedRecommendation.destroy_all
+        ContentBasedRecommendation.destroy_all
+        ColabBasedRecommendation.destroy_all
     end
 
 end

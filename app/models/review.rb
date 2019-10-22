@@ -43,4 +43,8 @@ class Review < ApplicationRecord
 		end
 	end
 
+	def self.count_interception(movieA, movieB)
+		(movieA.users & movieB.users).count
+	end	
+
 end

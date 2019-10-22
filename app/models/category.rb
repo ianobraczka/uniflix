@@ -10,5 +10,9 @@ class Category < ApplicationRecord
 			return self.find_by(name: name).id
 		end
 	end
+
+	def average_rating
+		self.movies.average(:vote_avg).to_f
+	end
 	
 end
