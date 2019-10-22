@@ -37,4 +37,4 @@ function slideInfo()
 	elem.classList.toggle('hide');
 }
 
-window.setTimeout("slideInfo();", 10000);
+window.setTimeout("slideInfo();", 20000);

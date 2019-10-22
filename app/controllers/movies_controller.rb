@@ -1,18 +1,3 @@
-class Array
-
-  def to_activerecord_relation
-    return ApplicationRecord.none if self.empty?
-
-    clazzes = self.collect(&:class).uniq
-    raise 'Array cannot be converted to ActiveRecord::Relation since it does not have same elements' if clazzes.size > 1
-
-    clazz = clazzes.first
-    raise 'Element class is not ApplicationRecord and as such cannot be converted' unless clazz.ancestors.include? ApplicationRecord
-
-    clazz.where(id: self.collect(&:id))
-  end
-end
-
 class MoviesController < ApplicationController
 
 	before_action :authenticate_user!
@@ -28,7 +13,7 @@ class MoviesController < ApplicationController
 	# FILTRAGEM BASEADA EM CONTEÚDO
 	def content_based_filtering
 		recommendations = Movie.content_based_filter(current_user)
-		movies = recommendations + (Movie.all. - recommendations)
+		movies = recommendations + (Movie.all - recommendations)
 		@recommendations_count = recommendations.count
 		@movies = movies.first(30)
 	end
@@ -36,17 +21,18 @@ class MoviesController < ApplicationController
 	# FILTRAGEM BASEADA EM FILTRO COLABORATIVO
 	def collaborative_filtering
 		recommendations = Movie.collaborative_filter(current_user)
-		movies = recommendations + (Movie.all. - recommendations)
+		movies = recommendations + (Movie.all - recommendations)
 		@recommendations_count = recommendations.count
-		@movies = recommendations.first(30)
+		@movies = movies.first(30)
 	end
 
 	# FILTRAGEM BASEADA NO PASSADO DO USUÁRIO
 	def past_filtering
 		recommendations = Movie.past_filter(current_user)
-		movies = recommendations + (Movie.all. - recommendations)
+		movies = recommendations + (Movie.all - recommendations)
 		@recommendations_count = recommendations.count
-		@movies = recommendations.first(30)
+		@last_liked_movie = current_user.last_liked_movie
+		@movies = movies.first(30)
 	end
 
 	def liked

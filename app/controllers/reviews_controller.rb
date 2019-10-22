@@ -13,9 +13,10 @@ class ReviewsController < ApplicationController
 
 		if review.save!
 			movie.update_ratings
+			PastBasedRecommendation.where(user_id: params[:user_id]).destroy_all
 		end
 		
-		redirect_to :root
+		redirect_to :past_filtering
 	end
 
 	def index

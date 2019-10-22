@@ -68,6 +68,12 @@ class User < ApplicationRecord
         return movies
     end
 
+    def last_liked_movie
+        unless self.reviews.empty?
+            return Movie.find(self.reviews.where("rating >= ?", 3).order(created_at: :desc).first.movie_id)
+        end
+    end
+
     # metodo para ler usuarios mais proximos (distancia = 1 - pearson)
     def similar_users_hash(filepath=Rails.public_path.join('pearson-result.csv'))
         users = Hash.new
@@ -203,18 +209,20 @@ class User < ApplicationRecord
 
         recommendations = []
 
-        self.liked_movies.each do |liked_movie|
-            target_movies.each do |target_movie|
-                suporte = ( liked_movie.reviews.count.to_f/target_movie.reviews.count.to_f ) * 100
-                puts "Suporte=" + suporte.to_s + "%"
-                confianca  = ( liked_movie.reviews.where("rating >= ?", 3).count.to_f/target_movie.reviews.where("rating >= ?", 3).count.to_f ) * 100
-                puts "Confiança=" + confianca.to_s + "%"
+        liked_movie = self.last_liked_movie
 
-                if suporte > 30 && confianca > 70
-                    puts "entra na lista"
-                    recommendations << target_movie
-                end
+        target_movies.each do |target_movie|
+            suporte = ( liked_movie.reviews.count.to_f/target_movie.reviews.count.to_f ) * 100
+            puts "Suporte=" + suporte.to_s + "%"
+            confianca  = ( liked_movie.reviews.where("rating >= ?", 3).count.to_f/target_movie.reviews.where("rating >= ?", 3).count.to_f ) * 100
+            puts "Confiança=" + confianca.to_s + "%"
+
+            if suporte > 30 && confianca > 70
+                puts "entra na lista"
+                recommendations << target_movie
             end
+
+            #binding.pry
         end
 
         return recommendations.uniq

@@ -3,11 +3,19 @@
 </script>
 
 <div class="info">
+	<b>Estas recomendações estão sendo mostradas a você porque você curtiu "<%= @last_liked_movie.title %>". </b>
+	<br><br>
 	<b>Para a filtragem ? seguimos o seguinte processo:</b>
 	<br><br>
-	1) Identificamos os filmes curtidos pelo usuário;
+	1) Identificamos o último filme 'curtido' pelo usuário, ou seja, o último filme que o usuário avaliou com mais de 3 estrelas;
+	<br><br>
+	2) Comparamos esse filme com alguns 'filmes target' - sendo estes os filmes bem avaliados pelos usuários próximos - aplicando a seguintes fórmulas:
+	<br><br>
+	Suporte = Quantidade de avaliações para o filme curtido / Quantidade de avaliações para o filme target
 	<br>
-	2) 
+	Confiança = Quantidade de avaliações acima de 3 para o filme curtido / Quantidade de avaliações acima de 3 para o filme target
+	<br><br>
+	3) Se suporte >= 30% e confiança >= 70%, então recomendamos o filme para o usuário.
 </div>
 
 <%= render 'movies' %>
