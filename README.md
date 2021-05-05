@@ -1,24 +1,11 @@
-# README
+# UNIFLIX
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Movies recommendation system. Developed as final project for Collaborative Systems subject from EIA, UNIRIO.
 
-Things you may want to cover:
+Recommendation types covered:
 
-* Ruby version
+* Collaborative filtering
 
-* System dependencies
+* Content-based filtering
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Hybrid Recommendation
