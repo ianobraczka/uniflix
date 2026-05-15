@@ -1,10 +1,14 @@
 # Uniflix
 
-Uniflix is a **Ruby on Rails** web app for **movie recommendations**: users browse suggested titles, open a film, and submit ratings. The UI routes three complementary strategies—**collaborative filtering**, **content-based filtering**, and a **past-based / knowledge-discovery** path (labeled *desc. conhecimento* in the interface)—plus a list of **already rated** titles. The work was done for a university **Collaborative Systems** course, which also treats **hybrid** recommendation in the curriculum; this codebase focuses on **separate classical pipelines** users can switch between, not a single blended ranker.
+Uniflix is a Ruby on Rails web app for movie recommendations: users browse suggested titles, open a film, and submit ratings.
+
+The UI routes three complementary strategies—collaborative filtering, content-based filtering, and a past-based / knowledge-discovery path.
+
+The work was done for a university Collaborative Systems course, which also treats hybrid recommendation in the curriculum.
 
 ![Interface preview reconstructed from the original project structure](docs/uniflix-preview.png)
 
-*Preview reconstructed from layouts, views, and `application.css` ([`docs/uniflix-preview.html`](docs/uniflix-preview.html)); not a live screenshot.*
+*Preview reconstructed from layouts, views, and `application.css` ([`docs/uniflix-preview.html`](docs/uniflix-preview.html)); not a live screenshot. Image shows the **upper portion** of the mockup (banner, header, nav, info block).*
 
 ## Project context
 

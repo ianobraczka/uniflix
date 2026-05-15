@@ -59,57 +59,12 @@
       padding: 15px 5%;
       font-size: 15px;
     }
-    .movies {
-      list-style: none;
-      padding: 20px;
-      text-align: center;
-      margin: 0;
-      background-color: #D2B48C;
-    }
-    .count {
-      padding-bottom: 10px;
-      text-transform: uppercase;
-      font-weight: bold;
-    }
-    .movie {
-      display: inline-block;
-      width: 180px;
-      height: 250px;
-      margin: 10px;
-      padding: 12px 15px;
-      line-height: 25px;
-      border: 1px solid black;
-      cursor: pointer;
-      text-decoration: none;
-      color: black;
-      font-size: 14px;
-      font-weight: 400;
-      background-color: grey;
-      position: relative;
-      vertical-align: top;
-      text-align: center;
-      box-sizing: border-box;
-    }
-    .movie:hover { background-color: yellow; }
-    .movie .poster {
-      height: 150px;
-      width: 100px;
-      margin: 0 auto 8px;
-      background: linear-gradient(145deg, #4a5568, #2d3748);
-      border: 1px solid #111;
-    }
-    .movie .title { height: 75px; overflow: hidden; }
-    .stars {
-      font-size: 18px;
-      letter-spacing: 2px;
-      color: #b7791f;
-    }
-    .movie.liked { background-color: green; }
+    /* Movie grid omitted — README preview image is top half only (header + nav + info). */
   </style>
 </head>
 <body>
   <div class="banner">
-    <strong>Documentation mockup only</strong> — not a live screenshot. Reconstructed from <code>app/views</code> and <code>application.css</code> (Rails asset pipeline).
+    <strong>Documentation mockup only</strong> — not a live screenshot. Reconstructed from <code>app/views</code> and <code>application.css</code> (Rails asset pipeline). Preview shows the upper portion of the layout only.
   </div>
 
   <div class="header">
@@ -131,30 +86,5 @@
     <br><br>
     <span style="opacity:0.85">(Texto resumido — ver <code>collaborative_filtering.html.erb</code> no repositório.)</span>
   </div>
-
-  <ul class="movies">
-    <li class="count">12 recomendações encontradas para Usuário exemplo</li>
-    <li class="movie">
-      <div class="poster" title="poster placeholder"></div>
-      <div class="title">Interestelar<br><br></div>
-      <div class="rating"><span class="stars">★★★★</span> (4.25)</div>
-    </li>
-    <li class="movie liked">
-      <div class="poster"></div>
-      <div class="title">Blade Runner 2049<br><br></div>
-      <div class="rating"><span class="stars">★★★★★</span> (4.80)</div>
-      <div style="font-size:10px;padding-top:5px;position:absolute;bottom:23px;left:0;right:0;">você avaliou esse filme com 5</div>
-    </li>
-    <li class="movie">
-      <div class="poster"></div>
-      <div class="title">Parasita<br><br></div>
-      <div class="rating"><span class="stars">★★★★</span> (4.10)</div>
-    </li>
-    <li class="movie">
-      <div class="poster"></div>
-      <div class="title">Cidade de Deus<br><br></div>
-      <div class="rating"><span class="stars">★★★</span> (3.90)</div>
-    </li>
-  </ul>
 </body>
 </html>
