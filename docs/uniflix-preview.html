@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Uniflix — static interface preview (documentation mockup)</title>
+  <style>
+    /* Reconstructed from app/assets/stylesheets/application.css (+ header partial) */
+    body {
+      margin: 0;
+      margin-top: 0;
+      font-family: monospace;
+      background: #fff;
+    }
+    .banner {
+      background: #fff3cd;
+      border-bottom: 1px solid #856404;
+      color: #533;
+      padding: 10px 16px;
+      font-size: 13px;
+      text-align: center;
+    }
+    .header {
+      padding-bottom: 5px;
+      padding-top: 10px;
+      text-align: center;
+      background-color: lightgreen;
+    }
+    .header h1 a {
+      text-decoration: none;
+      color: black;
+    }
+    .user-area { font-size: 14px; margin-top: 6px; }
+    .options {
+      border: 1px solid grey;
+      background-color: lightblue;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      text-align: center;
+      display: block;
+    }
+    .options .option {
+      color: black;
+      text-decoration: none;
+      text-transform: lowercase;
+      font-weight: bold;
+      display: inline-block;
+      min-width: 200px;
+      width: 23%;
+      padding: 10px 0;
+      box-sizing: border-box;
+    }
+    .options .option span { display: block; padding: 10px 0; }
+    .options .option:hover span { background-color: white; }
+    #colab { background: lightcyan; }
+    .info {
+      background-color: #DCDCDC;
+      padding: 15px 5%;
+      font-size: 15px;
+    }
+    .movies {
+      list-style: none;
+      padding: 20px;
+      text-align: center;
+      margin: 0;
+      background-color: #D2B48C;
+    }
+    .count {
+      padding-bottom: 10px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    .movie {
+      display: inline-block;
+      width: 180px;
+      height: 250px;
+      margin: 10px;
+      padding: 12px 15px;
+      line-height: 25px;
+      border: 1px solid black;
+      cursor: pointer;
+      text-decoration: none;
+      color: black;
+      font-size: 14px;
+      font-weight: 400;
+      background-color: grey;
+      position: relative;
+      vertical-align: top;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    .movie:hover { background-color: yellow; }
+    .movie .poster {
+      height: 150px;
+      width: 100px;
+      margin: 0 auto 8px;
+      background: linear-gradient(145deg, #4a5568, #2d3748);
+      border: 1px solid #111;
+    }
+    .movie .title { height: 75px; overflow: hidden; }
+    .stars {
+      font-size: 18px;
+      letter-spacing: 2px;
+      color: #b7791f;
+    }
+    .movie.liked { background-color: green; }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <strong>Documentation mockup only</strong> — not a live screenshot. Reconstructed from <code>app/views</code> and <code>application.css</code> (Rails asset pipeline).
+  </div>
+
+  <div class="header">
+    <h1><a href="#">UNIFLIX</a></h1>
+    <div class="user-area">sair</div>
+  </div>
+
+  <div class="options">
+    <a href="#" class="option"><span id="colab">Filtragem colaborativa</span></a>
+    <a href="#" class="option"><span id="content">Por conteúdo</span></a>
+    <a href="#" class="option"><span id="past">desc. conhecimento</span></a>
+    <a href="#" class="option"><span id="reviewed">avaliados</span></a>
+  </div>
+
+  <div class="info">
+    <b>Para a filtragem colaborativa seguimos o seguinte processo:</b>
+    <br><br>
+    1) Buscamos os 10 usuários mais próximos do usuário logado…
+    <br><br>
+    <span style="opacity:0.85">(Texto resumido — ver <code>collaborative_filtering.html.erb</code> no repositório.)</span>
+  </div>
+
+  <ul class="movies">
+    <li class="count">12 recomendações encontradas para Usuário exemplo</li>
+    <li class="movie">
+      <div class="poster" title="poster placeholder"></div>
+      <div class="title">Interestelar<br><br></div>
+      <div class="rating"><span class="stars">★★★★</span> (4.25)</div>
+    </li>
+    <li class="movie liked">
+      <div class="poster"></div>
+      <div class="title">Blade Runner 2049<br><br></div>
+      <div class="rating"><span class="stars">★★★★★</span> (4.80)</div>
+      <div style="font-size:10px;padding-top:5px;position:absolute;bottom:23px;left:0;right:0;">você avaliou esse filme com 5</div>
+    </li>
+    <li class="movie">
+      <div class="poster"></div>
+      <div class="title">Parasita<br><br></div>
+      <div class="rating"><span class="stars">★★★★</span> (4.10)</div>
+    </li>
+    <li class="movie">
+      <div class="poster"></div>
+      <div class="title">Cidade de Deus<br><br></div>
+      <div class="rating"><span class="stars">★★★</span> (3.90)</div>
+    </li>
+  </ul>
+</body>
+</html>
